@@ -2,6 +2,7 @@ package com.codestates.member.entity;
 
 import com.codestates.audit.Auditable;
 import com.codestates.order.entity.Order;
+import com.codestates.question.entity.Question;
 import com.codestates.stamp.Stamp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,8 @@ public class Member extends Auditable {
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
-
+    @OneToMany(mappedBy = "member")
+    private List<Question>questions = new ArrayList<>();
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
