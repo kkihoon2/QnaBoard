@@ -1,5 +1,6 @@
 package com.codestates.question.entity;
 
+import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.member.entity.Member;
 import jdk.jfr.Enabled;
@@ -9,6 +10,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 //Todo:
 @NoArgsConstructor
@@ -28,6 +31,8 @@ public class Question {
     @ManyToOne
     @JoinColumn(name="MEMBER_ID")
     private Member member;
+    @OneToMany(mappedBy = "question")
+    private List<Answer>answer = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 25, nullable = false)

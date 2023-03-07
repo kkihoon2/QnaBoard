@@ -46,11 +46,19 @@ public class QuestionController {
         return ResponseEntity.created(location).build();
     }
     @GetMapping("/{question-id}")
-    public ResponseEntity getOrder(@PathVariable("question-id") @Positive long questionId,
+    public ResponseEntity getMember(@PathVariable("question-id") @Positive long questionId,
                                    @Positive @RequestParam int memberId){
         Question findQuestion = questionService.findQuestion(questionId,memberId);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToQuestionResponseDto(findQuestion)), HttpStatus.OK
         );
     }
+    @DeleteMapping({"/{question-id}"})
+    public ResponseEntity getDelete(@PathVariable("question-id") @Positive long questionId,
+                                    @Positive @RequestParam int memberId){
+        Question deleteQuestion = questionService.deleteQuestion(questionId,memberId);
+        URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, deleteQuestion.getQuestionId());
+
+        return ResponseEntity.created(location).build();
+    };
 }
