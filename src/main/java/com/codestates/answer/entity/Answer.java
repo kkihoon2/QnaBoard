@@ -1,5 +1,6 @@
 package com.codestates.answer.entity;
 
+import com.codestates.member.entity.Member;
 import com.codestates.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,8 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
 }

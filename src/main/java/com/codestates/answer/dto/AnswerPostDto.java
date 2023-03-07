@@ -10,15 +10,11 @@ import javax.validation.constraints.Positive;
 public class AnswerPostDto {
     @Positive
     private long questionId;
+    @Positive
+    private long memberId;
     @NotBlank(message = "제목은 공백이 아니어야 합니다.")
     private String title;
     @NotBlank(message = "내용은 공백이 아니어야 합니다.")
     private String content;
 
-    private long memberId;
-    public Question getQuestion(){
-        Question question = new Question();
-        question.setQuestionId(questionId);
-        return question;
-    }
 }

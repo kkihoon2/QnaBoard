@@ -1,5 +1,6 @@
 package com.codestates.member.entity;
 
+import com.codestates.answer.entity.Answer;
 import com.codestates.audit.Auditable;
 import com.codestates.order.entity.Order;
 import com.codestates.question.entity.Question;
@@ -39,6 +40,8 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Answer>answers = new ArrayList<>();
     @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST)
     private Stamp stamp;
 

@@ -27,10 +27,9 @@ public class AnswerController {
         this.answerService = answerService;
         this.mapper = mapper;
     }
-    @PostMapping("/{member-id}")//관리자 or 작성자 확인용
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto
-                                     , @PathVariable("member-id") @Positive long memberId){
-        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto),memberId);
+    @PostMapping
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto){
+        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
         URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, answer.getAnswerId());
 
         return ResponseEntity.created(location).build();
