@@ -1,5 +1,6 @@
 package com.codestates.answer.controller;
 
+import com.codestates.answer.dto.AnswerPatchDto;
 import com.codestates.answer.dto.AnswerPostDto;
 import com.codestates.answer.entity.Answer;
 import com.codestates.answer.mapper.AnswerMapper;
@@ -7,6 +8,7 @@ import com.codestates.answer.service.AnswerService;
 import com.codestates.question.dto.QuestionPostDto;
 import com.codestates.utils.UriCreator;
 import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +35,19 @@ public class AnswerController {
         URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, answer.getAnswerId());
 
         return ResponseEntity.created(location).build();
+    }
+    @PatchMapping("/{answer-id}")
+    public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
+            @Valid @RequestBody AnswerPatchDto answerPatchDto){
+        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto),answerId);
+        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, answer.getAnswerId());
+
+        return ResponseEntity.created(location).build();
+    }
+    @DeleteMapping
+    public ResponseEntity deleteAnswer(@Valid @RequestParam long memberId,
+                                      @Valid @RequestParam long answerId){
+        answerService.deleteMember(memberId,answerId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
