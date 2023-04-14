@@ -7,8 +7,13 @@ import com.codestates.member.repository.MemberRepository;
 import com.codestates.member.service.MemberService;
 import com.codestates.question.entity.Question;
 import com.codestates.question.repository.QuestionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +41,16 @@ public class QuestionService {
         Question findQuestion = optionalQuestion.orElseThrow(()->new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
     }
+    public Page<Question> findQuestions(int page, int size, int option){
+
+        if(option==1) {//최근부터
+            return questionRepository.findAllByOrderByCreatedAtAsc(PageRequest.of(page, size));
+        }else if(option==2)// 옛날부터createdAt
+            return questionRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(page, size));
+        else throw new BusinessLogicException(ExceptionCode.OPTION_NOT_FOUND);
+    }
+
+
     public void verifiedChecker(long questionId,long memberId){
         Optional<Question>optionalQuestion=questionRepository.findById(questionId);
         Question findQuestion = optionalQuestion.orElseThrow(()->new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));

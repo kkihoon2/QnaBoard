@@ -16,7 +16,8 @@ public enum ExceptionCode {
     SECRET_QUESTION_QUESTIONID_NOT_MATCH(1818,"Qustion memberId Answer memberId not match and not admin"),
     ANSWER_NOT_MATCH(404,"Answer is not match"),
     ANSWER_MEMBER_NOT_MATCH(404,"Answer's member not match"),
-    ANSWER_NOT_FOUND(404,"Answer not found");
+    ANSWER_NOT_FOUND(404,"Answer not found"),
+    OPTION_NOT_FOUND(404,"Option not found");
     @Getter
     private int status;
 

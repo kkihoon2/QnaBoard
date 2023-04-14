@@ -9,6 +9,8 @@ import com.codestates.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
     Question questionPostDtoToQuestion(QuestionPostDto questionPostDto);
@@ -16,4 +18,6 @@ public interface QuestionMapper {
     @Mapping(source = "member.memberId",target = "memberId")
     @Mapping(source = "member.name",target = "name")
     QuestionResponseDto questionToQuestionResponseDto(Question question);
+
+    List<QuestionResponseDto>questionsToQuestionResponseDto(List<Question> questions);
 }
